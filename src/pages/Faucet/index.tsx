@@ -5,6 +5,9 @@ import {displayBalance, ellipseAddress, useContract, useTokenBalances, useWeb3} 
 import {getIcon} from '../../helpers/icon'
 import TokenABI from '../../abis/Token.json'
 import {ethers} from 'ethers'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import {CopyToClipboard} from 'react-copy-to-clipboard'
+import {toast} from 'react-toastify'
 
 const WithoutStyleInput = styled(InputBase)(({theme}) => ({
   root: {
@@ -52,7 +55,14 @@ const Faucet = () => {
   }
 
   return (
-    <Box display='flex' alignItems='center' justifyContent='center'>
+    <Box
+      display='flex'
+      alignItems='center'
+      justifyContent='center'
+      sx={{
+        minHeight: `calc(100vh - 128px)`
+      }}
+    >
       <Box
         width='380px'
         maxWidth='100%'
@@ -100,8 +110,24 @@ const Faucet = () => {
         </Box>
         <Box display='flex' alignItems='center'>
           <Typography variant='subtitle2'>Address</Typography>
-          <Typography variant='body2' ml='auto'>
-            {ellipseAddress(token?.address, 6)}
+          <Typography variant='body2' ml='auto' sx={{svg: {fontSize: '12px', cursor: 'pointer'}}}>
+            {ellipseAddress(token?.address, 6)} &nbsp;
+            <CopyToClipboard
+              text={token?.address || ''}
+              onCopy={() => {
+                toast('🦄 Copy successfully', {
+                  position: 'top-right',
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined
+                })
+              }}
+            >
+              <ContentCopyIcon />
+            </CopyToClipboard>
           </Typography>
         </Box>
         <Box display='flex' alignItems='center' mb={3}>

@@ -1,10 +1,15 @@
 import React, {useState} from 'react'
-import {Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, Toolbar} from '@mui/material'
+import {Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography} from '@mui/material'
 import SpeedIcon from '@mui/icons-material/Speed'
 import CodeIcon from '@mui/icons-material/Code'
 import {drawerWidth} from '../../constants'
+// @ts-ignore
+import Jazzicon, {jsNumberForAddress} from 'react-jazzicon'
+import {CHAIN_ETHER, Chains} from '@w3u/chains'
+import {ellipseAddress, useWeb3} from '@w3u/useweb3'
 
 const Sidebar = (props: {window?: () => Window; mobileOpen: boolean; setMobileOpen: any}) => {
+  const {chainId, account} = useWeb3()
   const [selectedIndex, setSelectedIndex] = useState(0)
   const {window, mobileOpen, setMobileOpen} = props
 
@@ -15,6 +20,27 @@ const Sidebar = (props: {window?: () => Window; mobileOpen: boolean; setMobileOp
       <Toolbar sx={{minHeight: '60px'}}>
         <img src='https://docs.soliditylang.org/en/v0.8.10/_static/logo.svg' alt='ethereum-logo' width={40} />
       </Toolbar>
+      <Box
+        sx={{
+          p: 3
+        }}
+      >
+        <Box
+          sx={{
+            p: '15px 20px',
+            borderRadius: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            background: 'rgb(244, 246, 248)'
+          }}
+        >
+          <Jazzicon diameter={38} seed={Math.round(Math.random() * 10000000)} />
+          <Box ml={2}>
+            <Typography variant='subtitle2'>{Chains[chainId || CHAIN_ETHER].displayName}</Typography>
+            <Typography variant='body2'>{ellipseAddress(account)}</Typography>
+          </Box>
+        </Box>
+      </Box>
       <List>
         <ListItemButton selected={selectedIndex === 0} key={'Faucet'} onClick={() => setSelectedIndex(0)}>
           <ListItemIcon>
