@@ -2789,10 +2789,17 @@
   dependencies:
     typescript "^4.2.4"
 
-"@w3u/useweb3@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/@w3u/useweb3/-/useweb3-0.1.0.tgz#a54f4a0a55b81af77be7bd547816dbc894be91bb"
-  integrity sha512-zSTWBWMYEM9vpnyvzuV8YVq9CYxcWb25s/ggRVN+8tg2uy9C8cVgkvZx8YK9OH41YRgKZ6I7YtC8f2f5vntR4A==
+"@w3u/chains@^1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@w3u/chains/-/chains-1.2.9.tgz#db55ccf8ba5ed93ec3ad4c726e397757fba2def1"
+  integrity sha512-nJ7WOi4gZLT8MbsTXKGaR1iiwOYmct15L2nyuaYjKzPzsnVIzh+zbqEKlYCyp8HGhLoPM1jzswcDipGQL1qnIg==
+  dependencies:
+    typescript "^4.2.4"
+
+"@w3u/useweb3@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@w3u/useweb3/-/useweb3-0.1.4.tgz#d06b69024cfe1136758d23dcc7ddb05f8563d548"
+  integrity sha512-gDWGELrKKnJTsaqa4YYvJOXLwCHib+ehDAe4Db5di/9F5+PsvPW/tPZt3QhdDEXR6AVAiOqVljWZOz9gVGA1+w==
   dependencies:
     "@emotion/react" "^11.4.1"
     "@emotion/styled" "^11.3.0"
@@ -5586,9 +5593,9 @@ etag@~1.8.1:
   resolved "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
-ethers@^5.4.7:
+ethers@^5.4.7, ethers@^5.5.1:
   version "5.5.1"
-  resolved "https://registry.npmjs.org/ethers/-/ethers-5.5.1.tgz#d3259a95a42557844aa543906c537106c0406fbf"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.5.1.tgz#d3259a95a42557844aa543906c537106c0406fbf"
   integrity sha512-RodEvUFZI+EmFcE6bwkuJqpCYHazdzeR1nMzg+YWQSmQEsNtfl1KHGfp/FWZYl48bI/g7cgBeP2IlPthjiVngw==
   dependencies:
     "@ethersproject/abi" "5.5.0"
