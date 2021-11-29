@@ -1,4 +1,4 @@
-export const getIcon = (name: string) => {
+export const getIcon = (name: string | undefined) => {
   switch (name) {
     case 'USDT':
       return 'https://cryptologos.cc/logos/tether-usdt-logo.svg?v=014'

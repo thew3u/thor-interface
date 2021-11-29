@@ -7,6 +7,7 @@ import {drawerWidth} from '../../constants'
 import Jazzicon, {jsNumberForAddress} from 'react-jazzicon'
 import {CHAIN_ETHER, Chains} from '@w3u/chains'
 import {ellipseAddress, useWeb3} from '@w3u/useweb3'
+import {NavLink, Route, Switch} from 'react-router-dom'
 
 const Sidebar = (props: {window?: () => Window; mobileOpen: boolean; setMobileOpen: any}) => {
   const {chainId, account} = useWeb3()
@@ -34,7 +35,7 @@ const Sidebar = (props: {window?: () => Window; mobileOpen: boolean; setMobileOp
             background: 'rgb(244, 246, 248)'
           }}
         >
-          <Jazzicon diameter={38} seed={Math.round(Math.random() * 10000000)} />
+          <Jazzicon diameter={38} seed={account} />
           <Box ml={2}>
             <Typography variant='subtitle2'>{Chains[chainId || CHAIN_ETHER].displayName}</Typography>
             <Typography variant='body2'>{ellipseAddress(account)}</Typography>
@@ -42,13 +43,25 @@ const Sidebar = (props: {window?: () => Window; mobileOpen: boolean; setMobileOp
         </Box>
       </Box>
       <List>
-        <ListItemButton selected={selectedIndex === 0} key={'Faucet'} onClick={() => setSelectedIndex(0)}>
+        <ListItemButton
+          component={NavLink}
+          to='/faucet'
+          selected={selectedIndex === 0}
+          key={'Faucet'}
+          onClick={() => setSelectedIndex(0)}
+        >
           <ListItemIcon>
             <SpeedIcon />
           </ListItemIcon>
           <ListItemText primary='Faucet' />
         </ListItemButton>
-        <ListItemButton selected={selectedIndex === 1} key={'Contract'} onClick={() => setSelectedIndex(1)}>
+        <ListItemButton
+          component={NavLink}
+          to='/contract'
+          selected={selectedIndex === 1}
+          key={'Contract'}
+          onClick={() => setSelectedIndex(1)}
+        >
           <ListItemIcon>
             <CodeIcon />
           </ListItemIcon>
