@@ -7,6 +7,28 @@ export const defaultTheme = createTheme({
     }
   },
   components: {
+    MuiListItemButton: {
+      defaultProps: {
+        sx: {
+          borderRadius: '6px'
+        }
+      }
+    },
+    MuiSelect: {
+      defaultProps: {
+        sx: {
+          fontSize: '14px'
+        }
+      }
+    },
+    MuiMenuItem: {
+      defaultProps: {
+        sx: {
+          fontSize: '14px',
+          padding: '10px 20px'
+        }
+      }
+    },
     MuiCard: {
       styleOverrides: {}
     },

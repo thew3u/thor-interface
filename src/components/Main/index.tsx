@@ -4,6 +4,7 @@ import {drawerWidth} from '../../constants'
 import Header from '../Header'
 import Faucet from '../../pages/Faucet'
 import React, {ReactNode} from 'react'
+import Footer from '../Footer'
 
 const Main = ({children}: {children: ReactNode}) => {
   const [mobileOpen, setMobileOpen] = React.useState(false)
@@ -15,6 +16,7 @@ const Main = ({children}: {children: ReactNode}) => {
         <Header mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
         <Toolbar />
         {children}
+        <Footer />
       </Box>
     </Box>
   )

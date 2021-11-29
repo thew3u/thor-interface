@@ -4,17 +4,13 @@ import InputUnstyled, {InputUnstyledProps} from '@mui/base/InputUnstyled'
 
 const StyledInputElement = styled('input')`
   width: 100%;
-  background: rgb(244, 246, 248);
+  background: #fff;
   border: 1px solid rgb(244, 246, 248);
-  border-radius: 4px;
-  padding: 12px 24px;
+  border-radius: 6px;
+  padding: 16px 24px;
   color: #20262d;
   transition: width 300ms ease;
   font-size: 16px;
-
-  &:hover {
-    background: rgb(244, 246, 250);
-  }
 
   &:focus {
     outline: none;

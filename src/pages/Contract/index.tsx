@@ -1,4 +1,4 @@
-import {Box, Button, InputBase, MenuItem, Select, styled, Typography} from '@mui/material'
+import {Box, Button, CircularProgress, InputBase, MenuItem, Select, Skeleton, styled, Typography} from '@mui/material'
 import React, {ChangeEvent, useEffect, useMemo, useState} from 'react'
 import {useTokens} from '../../hooks'
 import {
@@ -57,7 +57,6 @@ const Contract = () => {
 
   const calls: MulticallCall[] = useMemo(() => {
     if (debounceAddress !== '') {
-      console.log(debounceAddress)
       return [
         {contract: tokenContract, method: 'balanceOf', args: [defaultAccount]},
         {contract: tokenContract, method: 'totalSupply', args: []},
@@ -70,74 +69,81 @@ const Contract = () => {
   }, [tokenContract])
 
   const result = useMulticall(calls)
-  console.log(result)
 
   return (
-    <Main>
-      <Box
-        display='flex'
-        alignItems='center'
-        justifyContent='center'
-        sx={{
-          minHeight: `calc(100vh - 128px)`
-        }}
-      >
-        <Box width='580px' maxWidth='100%'>
-          <Box display='flex' alignItems='center' mb={3}>
-            <UnstyledInput
-              placeholder='Input contract address'
-              value={address}
-              onChange={(e: ChangeEvent<{value: string}>) => setAddress(e.target.value)}
-            />
-            <Box ml={2}>
-              <Button>Confirm</Button>
+    <Box
+      display='flex'
+      alignItems='center'
+      justifyContent='center'
+      sx={{
+        minHeight: `calc(100vh - 128px)`
+      }}
+    >
+      <Box width='580px' maxWidth='100%' fontSize='30px'>
+        <Box
+          sx={{
+            p: 3,
+            background: 'rgb(244, 246, 248)',
+            borderRadius: '10px'
+          }}
+        >
+          <Typography variant='subtitle1'>Contract Address</Typography>
+          <UnstyledInput
+            placeholder='Input Contract Address'
+            value={address}
+            onChange={(e: ChangeEvent<{value: string}>) => setAddress(e.target.value)}
+          />
+        </Box>
+        <Box
+          sx={{
+            mt: 3,
+            background: 'rgb(244, 246, 248)',
+            borderRadius: '10px',
+            p: 3
+          }}
+        >
+          {!result && (
+            <Box textAlign='center'>
+              <CircularProgress size={20} />
             </Box>
-          </Box>
-          <Box
-            sx={{
-              background: 'rgb(244, 246, 248)',
-              borderRadius: '10px',
-              p: 3
-            }}
-          >
-            {result && (
-              <>
-                <Box display='flex' alignItems='center' mb={1}>
-                  <Typography variant='subtitle2'>Name</Typography>
-                  <Typography variant='body2' ml='auto'>
-                    {result[3]}
-                  </Typography>
-                </Box>
-                <Box display='flex' alignItems='center' mb={1}>
-                  <Typography variant='subtitle2'>Symbol</Typography>
-                  <Typography variant='body2' ml='auto'>
-                    {result[4]}
-                  </Typography>
-                </Box>
-                <Box display='flex' alignItems='center' mb={1}>
-                  <Typography variant='subtitle2'>Decimals</Typography>
-                  <Typography variant='body2' ml='auto'>
-                    {result[2]}
-                  </Typography>
-                </Box>
-                <Box display='flex' alignItems='center' mb={1}>
-                  <Typography variant='subtitle2'>Balance</Typography>
-                  <Typography variant='body2' ml='auto'>
-                    {displayBalance(result[0], result[2])}
-                  </Typography>
-                </Box>
-                <Box display='flex' alignItems='center'>
-                  <Typography variant='subtitle2'>Total Supply</Typography>
-                  <Typography variant='body2' ml='auto'>
-                    {displayBalance(result[1], result[2])}
-                  </Typography>
-                </Box>
-              </>
-            )}
-          </Box>
+          )}
+          {result && (
+            <>
+              <Box display='flex' alignItems='center' mb={1}>
+                <Typography variant='subtitle2'>Name</Typography>
+                <Typography variant='body2' ml='auto'>
+                  {result[3]}
+                </Typography>
+              </Box>
+              <Box display='flex' alignItems='center' mb={1}>
+                <Typography variant='subtitle2'>Symbol</Typography>
+                <Typography variant='body2' ml='auto'>
+                  {result[4]}
+                </Typography>
+              </Box>
+              <Box display='flex' alignItems='center' mb={1}>
+                <Typography variant='subtitle2'>Decimals</Typography>
+                <Typography variant='body2' ml='auto'>
+                  {result[2]}
+                </Typography>
+              </Box>
+              <Box display='flex' alignItems='center' mb={1}>
+                <Typography variant='subtitle2'>Balance</Typography>
+                <Typography variant='body2' ml='auto'>
+                  {displayBalance(result[0], result[2])}
+                </Typography>
+              </Box>
+              <Box display='flex' alignItems='center'>
+                <Typography variant='subtitle2'>Total Supply</Typography>
+                <Typography variant='body2' ml='auto'>
+                  {displayBalance(result[1], result[2])}
+                </Typography>
+              </Box>
+            </>
+          )}
         </Box>
       </Box>
-    </Main>
+    </Box>
   )
 }
 

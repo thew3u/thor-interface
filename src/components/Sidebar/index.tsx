@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography} from '@mui/material'
 import SpeedIcon from '@mui/icons-material/Speed'
 import CodeIcon from '@mui/icons-material/Code'
@@ -7,12 +7,17 @@ import {drawerWidth} from '../../constants'
 import Jazzicon, {jsNumberForAddress} from 'react-jazzicon'
 import {CHAIN_ETHER, Chains} from '@w3u/chains'
 import {ellipseAddress, useWeb3} from '@w3u/useweb3'
-import {NavLink, Route, Switch} from 'react-router-dom'
+import {Link, NavLink, Route, Switch} from 'react-router-dom'
 
 const Sidebar = (props: {window?: () => Window; mobileOpen: boolean; setMobileOpen: any}) => {
   const {chainId, account} = useWeb3()
   const [selectedIndex, setSelectedIndex] = useState(0)
   const {window, mobileOpen, setMobileOpen} = props
+  console.log(selectedIndex)
+
+  useEffect(() => {
+    console.log(3333)
+  }, [mobileOpen])
 
   const container = window !== undefined ? () => window().document.body : undefined
 
@@ -35,39 +40,47 @@ const Sidebar = (props: {window?: () => Window; mobileOpen: boolean; setMobileOp
             background: 'rgb(244, 246, 248)'
           }}
         >
-          <Jazzicon diameter={38} seed={account} />
+          <Jazzicon diameter={38} seed={jsNumberForAddress(account)} />
           <Box ml={2}>
             <Typography variant='subtitle2'>{Chains[chainId || CHAIN_ETHER].displayName}</Typography>
             <Typography variant='body2'>{ellipseAddress(account)}</Typography>
           </Box>
         </Box>
       </Box>
-      <List>
-        <ListItemButton
-          component={NavLink}
-          to='/faucet'
-          selected={selectedIndex === 0}
-          key={'Faucet'}
-          onClick={() => setSelectedIndex(0)}
-        >
-          <ListItemIcon>
-            <SpeedIcon />
-          </ListItemIcon>
-          <ListItemText primary='Faucet' />
-        </ListItemButton>
-        <ListItemButton
-          component={NavLink}
-          to='/contract'
-          selected={selectedIndex === 1}
-          key={'Contract'}
-          onClick={() => setSelectedIndex(1)}
-        >
-          <ListItemIcon>
-            <CodeIcon />
-          </ListItemIcon>
-          <ListItemText primary='Contract' />
-        </ListItemButton>
-      </List>
+      <Box p={3}>
+        <List>
+          <ListItemButton
+            component={Link}
+            to='/faucet'
+            selected={selectedIndex === 0}
+            key={'faucet'}
+            onClick={() => {
+              console.log(0)
+              setSelectedIndex(0)
+            }}
+          >
+            <ListItemIcon>
+              <SpeedIcon />
+            </ListItemIcon>
+            <ListItemText primary='Faucet' />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to='/contract'
+            selected={selectedIndex === 1}
+            key={'contract'}
+            onClick={() => {
+              console.log(1)
+              setSelectedIndex(1)
+            }}
+          >
+            <ListItemIcon>
+              <CodeIcon />
+            </ListItemIcon>
+            <ListItemText primary='Contract' />
+          </ListItemButton>
+        </List>
+      </Box>
     </div>
   )
 
