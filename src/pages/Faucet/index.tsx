@@ -11,6 +11,7 @@ import {toast} from 'react-toastify'
 import Main from '../../components/Main'
 import {CHAIN_ETHER_KOVAN} from '@w3u/chains'
 import NotFound from '../../assets/images/404.svg'
+import {Block} from '../../components/style'
 
 export const WithoutStyleInput = styled(InputBase)(({theme}) => ({
   root: {
@@ -101,7 +102,7 @@ const Faucet = () => {
         alignItems='center'
         justifyContent='center'
         sx={{
-          minHeight: `calc(100vh - 128px)`
+          minHeight: `calc(100vh - 148px)`
         }}
       >
         <Box textAlign='center'>
@@ -123,15 +124,7 @@ const Faucet = () => {
         minHeight: `calc(100vh - 128px)`
       }}
     >
-      <Box
-        width='380px'
-        maxWidth='100%'
-        sx={{
-          background: 'rgb(244, 246, 248)',
-          borderRadius: '10px',
-          p: 4
-        }}
-      >
+      <Block width='380px' maxWidth='100%'>
         <Box
           sx={{
             display: 'inline-block',
@@ -210,7 +203,7 @@ const Faucet = () => {
         <Button fullWidth={true} onClick={mint}>
           Mint
         </Button>
-      </Box>
+      </Block>
     </Box>
   )
 }

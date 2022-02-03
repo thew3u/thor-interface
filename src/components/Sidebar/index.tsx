@@ -1,23 +1,39 @@
 import React, {useEffect, useState} from 'react'
 import {Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography} from '@mui/material'
-import SpeedIcon from '@mui/icons-material/Speed'
-import CodeIcon from '@mui/icons-material/Code'
 import {drawerWidth} from '../../constants'
 // @ts-ignore
 import Jazzicon, {jsNumberForAddress} from 'react-jazzicon'
 import {CHAIN_ETHER, Chains} from '@w3u/chains'
 import {ellipseAddress, useWeb3} from '@w3u/useweb3'
 import {Link, NavLink, Route, Switch} from 'react-router-dom'
+import HardwareIcon from '@mui/icons-material/Hardware'
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import { getMenuIcon } from '../../helpers/icon'
+import Avatar from '@mui/material/Avatar';
+
+const menus = [
+  {
+    link: 'faucet',
+    name: 'Faucet'
+  },
+  {
+    link: 'nft',
+    name: 'NFT'
+  },
+  {
+    link: 'contract',
+    name: 'Contract'
+  },
+  {
+    link: 'helper',
+    name: 'Helper'
+  }
+]
 
 const Sidebar = (props: {window?: () => Window; mobileOpen: boolean; setMobileOpen: any}) => {
   const {chainId, account} = useWeb3()
   const [selectedIndex, setSelectedIndex] = useState(0)
   const {window, mobileOpen, setMobileOpen} = props
-  console.log(selectedIndex)
-
-  useEffect(() => {
-    console.log(3333)
-  }, [mobileOpen])
 
   const container = window !== undefined ? () => window().document.body : undefined
 
@@ -40,45 +56,38 @@ const Sidebar = (props: {window?: () => Window; mobileOpen: boolean; setMobileOp
             background: 'rgb(244, 246, 248)'
           }}
         >
-          <Jazzicon diameter={38} seed={jsNumberForAddress(account)} />
+          <Jazzicon diameter={38} seed={jsNumberForAddress(account || '')} />
           <Box ml={2}>
             <Typography variant='subtitle2'>{Chains[chainId || CHAIN_ETHER].displayName}</Typography>
             <Typography variant='body2'>{ellipseAddress(account)}</Typography>
           </Box>
         </Box>
       </Box>
-      <Box p={3}>
+      <Box
+        p={3}
+        sx={{
+          '.MuiTypography-root': {
+            fontSize: '14px'
+          }
+        }}
+      >
         <List>
-          <ListItemButton
-            component={Link}
-            to='/faucet'
-            selected={selectedIndex === 0}
-            key={'faucet'}
-            onClick={() => {
-              console.log(0)
-              setSelectedIndex(0)
-            }}
-          >
-            <ListItemIcon>
-              <SpeedIcon />
-            </ListItemIcon>
-            <ListItemText primary='Faucet' />
-          </ListItemButton>
-          <ListItemButton
-            component={Link}
-            to='/contract'
-            selected={selectedIndex === 1}
-            key={'contract'}
-            onClick={() => {
-              console.log(1)
-              setSelectedIndex(1)
-            }}
-          >
-            <ListItemIcon>
-              <CodeIcon />
-            </ListItemIcon>
-            <ListItemText primary='Contract' />
-          </ListItemButton>
+          {
+            menus.map((menu, i) =>
+              <ListItemButton
+                component={Link}
+                to={`/${menu.link}`}
+                selected={selectedIndex === i}
+                key={menu.link}
+                onClick={() => setSelectedIndex(i)}
+              >
+                <ListItemIcon>
+                  <img src={getMenuIcon(menu.link)} alt='icon' width={24} height={24} />
+                </ListItemIcon>
+                <ListItemText primary={menu.name} />
+              </ListItemButton>
+            )
+          }
         </List>
       </Box>
     </div>

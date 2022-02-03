@@ -1,4 +1,4 @@
-import {styled} from '@mui/material'
+import {Box, BoxProps, styled, StyledComponentProps} from '@mui/material'
 import React from 'react'
 import InputUnstyled, {InputUnstyledProps} from '@mui/base/InputUnstyled'
 
@@ -27,4 +27,23 @@ const CustomInput = React.forwardRef(function CustomInput(
 
 export default function UnstyledInput(props: InputUnstyledProps) {
   return <CustomInput style={{flexGrow: 1, flexShrink: 0}} {...props} />
+}
+
+export interface WithBoxProps extends BoxProps, StyledComponentProps {
+  children?: React.ReactNode
+}
+
+export const Block = ({children, ...other}: WithBoxProps): JSX.Element => {
+  return (
+    <Box
+      sx={{
+        p: 3,
+        background: 'rgb(244, 246, 248)',
+        borderRadius: '10px'
+      }}
+      {...other}
+    >
+      {children}
+    </Box>
+  )
 }

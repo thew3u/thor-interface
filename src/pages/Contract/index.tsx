@@ -1,25 +1,9 @@
-import {Box, Button, CircularProgress, InputBase, MenuItem, Select, Skeleton, styled, Typography} from '@mui/material'
-import React, {ChangeEvent, useEffect, useMemo, useState} from 'react'
-import {useTokens} from '../../hooks'
-import {
-  displayBalance,
-  ellipseAddress,
-  MulticallCall,
-  useContract,
-  useMulticall,
-  useTokenBalances,
-  useWeb3
-} from '@w3u/useweb3'
-import {getIcon} from '../../helpers/icon'
-import TokenABI from '../../abis/Token.json'
-import {ethers} from 'ethers'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import {CopyToClipboard} from 'react-copy-to-clipboard'
-import {toast} from 'react-toastify'
-import Main from '../../components/Main'
-import UnstyledInput from '../../components/style'
-import {useDebounce} from 'react-use'
+import {Box, CircularProgress, InputBase, styled, Typography} from '@mui/material'
+import React, {ChangeEvent, useMemo, useState} from 'react'
+import {displayBalance, MulticallCall, useContract, useMulticall, useWeb3} from '@w3u/useweb3'
+import UnstyledInput, {Block} from '../../components/style'
 import ERC20ABI from '../../abis/ERC20.json'
+import {useDebounce} from 'use-debounce'
 
 const WithoutStyleInput = styled(InputBase)(({theme}) => ({
   root: {
@@ -46,13 +30,9 @@ const Contract = () => {
   const {library, account, chainId} = useWeb3()
   const defaultAccount = account || '0xffffffffffffffffffffffffffffffffffffffff'
 
-  // const balances = useTokenBalances(tokenAddresses, account)
-
   const [address, setAddress] = useState('0x1f9840a85d5af5bf1d1762f925bdaddc4201f984')
+  const [debounceAddress] = useDebounce(address, 500)
 
-  const [debounceAddress, setDebounceAddress] = useState('')
-
-  useDebounce(() => setDebounceAddress(address), 500, [address])
   const tokenContract = useContract(debounceAddress, ERC20ABI.abi)
 
   const calls: MulticallCall[] = useMemo(() => {
@@ -80,28 +60,15 @@ const Contract = () => {
       }}
     >
       <Box width='580px' maxWidth='100%' fontSize='30px'>
-        <Box
-          sx={{
-            p: 3,
-            background: 'rgb(244, 246, 248)',
-            borderRadius: '10px'
-          }}
-        >
+        <Block>
           <Typography variant='subtitle1'>Contract Address</Typography>
           <UnstyledInput
             placeholder='Input Contract Address'
             value={address}
             onChange={(e: ChangeEvent<{value: string}>) => setAddress(e.target.value)}
           />
-        </Box>
-        <Box
-          sx={{
-            mt: 3,
-            background: 'rgb(244, 246, 248)',
-            borderRadius: '10px',
-            p: 3
-          }}
-        >
+        </Block>
+        <Block mt={3}>
           {!result && (
             <Box textAlign='center'>
               <CircularProgress size={20} />
@@ -141,7 +108,7 @@ const Contract = () => {
               </Box>
             </>
           )}
-        </Box>
+        </Block>
       </Box>
     </Box>
   )
