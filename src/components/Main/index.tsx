@@ -2,20 +2,17 @@ import {Box, Toolbar} from '@mui/material'
 import Sidebar from '../Sidebar'
 import {drawerWidth} from '../../constants'
 import Header from '../Header'
-import Faucet from '../../pages/Faucet'
 import React, {ReactNode} from 'react'
 import Footer from '../Footer'
-import { useWeb3 } from '@w3u/useweb3'
-import { NftProvider } from 'use-nft'
-import { ethers } from 'ethers'
-
-
+import {useWeb3} from '@w3u/useweb3'
+import {NftProvider} from 'use-nft'
+import {getDefaultProvider} from 'ethers'
 
 const Main = ({children}: {children: ReactNode}) => {
-  const {library, account, chainId} = useWeb3()
+  const {library} = useWeb3()
 
   const ethersConfig = {
-    provider: library
+    provider: library ?? getDefaultProvider(1)
   }
 
   const [mobileOpen, setMobileOpen] = React.useState(false)
