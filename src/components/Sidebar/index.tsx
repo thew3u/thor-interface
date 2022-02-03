@@ -1,15 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography} from '@mui/material'
 import {drawerWidth} from '../../constants'
 // @ts-ignore
 import Jazzicon, {jsNumberForAddress} from 'react-jazzicon'
 import {CHAIN_ETHER, Chains} from '@w3u/chains'
 import {ellipseAddress, useWeb3} from '@w3u/useweb3'
-import {Link, NavLink, Route, Switch} from 'react-router-dom'
-import HardwareIcon from '@mui/icons-material/Hardware'
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import { getMenuIcon } from '../../helpers/icon'
-import Avatar from '@mui/material/Avatar';
+import {Link} from 'react-router-dom'
+import {getMenuIcon} from '../../helpers/icon'
 
 const menus = [
   {

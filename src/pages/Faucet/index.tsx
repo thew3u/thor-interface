@@ -97,114 +97,118 @@ const Faucet = () => {
 
   if (chainId !== CHAIN_ETHER_KOVAN) {
     return (
+      <Main>
+        <Box
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
+          sx={{
+            minHeight: `calc(100vh - 148px)`
+          }}
+        >
+          <Box textAlign='center'>
+            <img src={NotFound} alt='not-found' width={200} />
+            <Typography variant='body2' mt={2}>
+              Only support Kovan and BSC Testnet
+            </Typography>
+          </Box>
+        </Box>
+      </Main>
+    )
+  }
+
+  return (
+    <Main>
       <Box
         display='flex'
         alignItems='center'
         justifyContent='center'
         sx={{
-          minHeight: `calc(100vh - 148px)`
+          minHeight: `calc(100vh - 128px)`
         }}
       >
-        <Box textAlign='center'>
-          <img src={NotFound} alt='not-found' width={200} />
-          <Typography variant='body2' mt={2}>
-            Only support Kovan and BSC Testnet
-          </Typography>
-        </Box>
-      </Box>
-    )
-  }
-
-  return (
-    <Box
-      display='flex'
-      alignItems='center'
-      justifyContent='center'
-      sx={{
-        minHeight: `calc(100vh - 128px)`
-      }}
-    >
-      <Block width='380px' maxWidth='100%'>
-        <Box
-          sx={{
-            display: 'inline-block',
-            p: 1,
-            borderRadius: '6px',
-            background: '#',
-            borderColor: 'primary.main',
-            mb: 3
-          }}
-        >
-          <Select
-            MenuProps={{anchorOrigin: {vertical: 'bottom', horizontal: 'center'}}}
-            value={selected}
-            onChange={handleChange}
-            input={<WithoutStyleInput />}
+        <Block width='380px' maxWidth='100%'>
+          <Box
+            sx={{
+              display: 'inline-block',
+              p: 1,
+              borderRadius: '6px',
+              background: '#',
+              borderColor: 'primary.main',
+              mb: 3
+            }}
           >
-            {tokens?.map((token) => {
-              return (
-                <MenuItem value={token.address} key={token.symbol}>
-                  <Box display='flex' alignItems='center'>
-                    <img width={16} height={16} src={getIcon(token.symbol)} alt='token' />
-                    <Typography variant={'body2'} ml={1}>
-                      {token.symbol}
-                    </Typography>
-                  </Box>
-                </MenuItem>
-              )
-            })}
-          </Select>
-        </Box>
-        <Box display='flex' alignItems='center'>
-          <Typography variant='subtitle2'>Balance</Typography>
-          <Typography variant='body2' ml='auto'>
-            {displayBalance(balances && balances[index], token?.decimals)}
-          </Typography>
-        </Box>
-        <Box display='flex' alignItems='center'>
-          <Typography variant='subtitle2'>Address</Typography>
-          <Typography variant='body2' ml='auto' sx={{svg: {fontSize: '12px', cursor: 'pointer'}}}>
-            {ellipseAddress(token?.address, 6)} &nbsp;
-            <CopyToClipboard
-              text={token?.address || ''}
-              onCopy={() => {
-                toast('🦄 Copy successfully', {
-                  position: 'top-right',
-                  autoClose: 2000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined
-                })
-              }}
+            <Select
+              MenuProps={{anchorOrigin: {vertical: 'bottom', horizontal: 'center'}}}
+              value={selected}
+              onChange={handleChange}
+              input={<WithoutStyleInput />}
             >
-              <ContentCopyIcon />
-            </CopyToClipboard>
-          </Typography>
-        </Box>
-        <Box display='flex' alignItems='center'>
-          <Typography variant='subtitle2'>Decimals</Typography>
-          <Typography variant='body2' ml='auto'>
-            {token?.decimals}
-          </Typography>
-        </Box>
-        <Box textAlign='right' my={2}>
-          <Typography
-            style={{cursor: 'pointer', color: '#1164FB'}}
-            variant='caption'
-            onClick={() =>
-              registerToken(token?.address || '', token?.symbol || '', token?.decimals || 18, getIcon(token?.symbol))
-            }
-          >
-            Add {token?.symbol} to Metamask
-          </Typography>
-        </Box>
-        <Button fullWidth={true} onClick={mint}>
-          Mint
-        </Button>
-      </Block>
-    </Box>
+              {tokens?.map((token) => {
+                return (
+                  <MenuItem value={token.address} key={token.symbol}>
+                    <Box display='flex' alignItems='center'>
+                      <img width={16} height={16} src={getIcon(token.symbol)} alt='token' />
+                      <Typography variant={'body2'} ml={1}>
+                        {token.symbol}
+                      </Typography>
+                    </Box>
+                  </MenuItem>
+                )
+              })}
+            </Select>
+          </Box>
+          <Box display='flex' alignItems='center'>
+            <Typography variant='subtitle2'>Balance</Typography>
+            <Typography variant='body2' ml='auto'>
+              {displayBalance(balances && balances[index], token?.decimals)}
+            </Typography>
+          </Box>
+          <Box display='flex' alignItems='center'>
+            <Typography variant='subtitle2'>Address</Typography>
+            <Typography variant='body2' ml='auto' sx={{svg: {fontSize: '12px', cursor: 'pointer'}}}>
+              {ellipseAddress(token?.address, 6)} &nbsp;
+              <CopyToClipboard
+                text={token?.address || ''}
+                onCopy={() => {
+                  toast('🦄 Copy successfully', {
+                    position: 'top-right',
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined
+                  })
+                }}
+              >
+                <ContentCopyIcon />
+              </CopyToClipboard>
+            </Typography>
+          </Box>
+          <Box display='flex' alignItems='center'>
+            <Typography variant='subtitle2'>Decimals</Typography>
+            <Typography variant='body2' ml='auto'>
+              {token?.decimals}
+            </Typography>
+          </Box>
+          <Box textAlign='right' my={2}>
+            <Typography
+              style={{cursor: 'pointer', color: '#1164FB'}}
+              variant='caption'
+              onClick={() =>
+                registerToken(token?.address || '', token?.symbol || '', token?.decimals || 18, getIcon(token?.symbol))
+              }
+            >
+              Add {token?.symbol} to Metamask
+            </Typography>
+          </Box>
+          <Button fullWidth={true} onClick={mint}>
+            Mint
+          </Button>
+        </Block>
+      </Box>
+    </Main>
   )
 }
 

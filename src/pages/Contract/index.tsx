@@ -4,6 +4,7 @@ import {displayBalance, MulticallCall, useContract, useMulticall, useWeb3} from 
 import UnstyledInput, {Block} from '../../components/style'
 import ERC20ABI from '../../abis/ERC20.json'
 import {useDebounce} from 'use-debounce'
+import Main from '../../components/Main'
 
 const WithoutStyleInput = styled(InputBase)(({theme}) => ({
   root: {
@@ -51,66 +52,68 @@ const Contract = () => {
   const result = useMulticall(calls)
 
   return (
-    <Box
-      display='flex'
-      alignItems='center'
-      justifyContent='center'
-      sx={{
-        minHeight: `calc(100vh - 128px)`
-      }}
-    >
-      <Box width='580px' maxWidth='100%' fontSize='30px'>
-        <Block>
-          <Typography variant='subtitle1'>Contract Address</Typography>
-          <UnstyledInput
-            placeholder='Input Contract Address'
-            value={address}
-            onChange={(e: ChangeEvent<{value: string}>) => setAddress(e.target.value)}
-          />
-        </Block>
-        <Block mt={3}>
-          {!result && (
-            <Box textAlign='center'>
-              <CircularProgress size={20} />
-            </Box>
-          )}
-          {result && (
-            <>
-              <Box display='flex' alignItems='center' mb={1}>
-                <Typography variant='subtitle2'>Name</Typography>
-                <Typography variant='body2' ml='auto'>
-                  {result[3]}
-                </Typography>
+    <Main>
+      <Box
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        sx={{
+          minHeight: `calc(100vh - 128px)`
+        }}
+      >
+        <Box width='580px' maxWidth='100%' fontSize='30px'>
+          <Block>
+            <Typography variant='subtitle1'>Contract Address</Typography>
+            <UnstyledInput
+              placeholder='Input Contract Address'
+              value={address}
+              onChange={(e: ChangeEvent<{value: string}>) => setAddress(e.target.value)}
+            />
+          </Block>
+          <Block mt={3}>
+            {!result && (
+              <Box textAlign='center'>
+                <CircularProgress size={20} />
               </Box>
-              <Box display='flex' alignItems='center' mb={1}>
-                <Typography variant='subtitle2'>Symbol</Typography>
-                <Typography variant='body2' ml='auto'>
-                  {result[4]}
-                </Typography>
-              </Box>
-              <Box display='flex' alignItems='center' mb={1}>
-                <Typography variant='subtitle2'>Decimals</Typography>
-                <Typography variant='body2' ml='auto'>
-                  {result[2]}
-                </Typography>
-              </Box>
-              <Box display='flex' alignItems='center' mb={1}>
-                <Typography variant='subtitle2'>Balance</Typography>
-                <Typography variant='body2' ml='auto'>
-                  {displayBalance(result[0], result[2])}
-                </Typography>
-              </Box>
-              <Box display='flex' alignItems='center'>
-                <Typography variant='subtitle2'>Total Supply</Typography>
-                <Typography variant='body2' ml='auto'>
-                  {displayBalance(result[1], result[2])}
-                </Typography>
-              </Box>
-            </>
-          )}
-        </Block>
+            )}
+            {result && (
+              <>
+                <Box display='flex' alignItems='center' mb={1}>
+                  <Typography variant='subtitle2'>Name</Typography>
+                  <Typography variant='body2' ml='auto'>
+                    {result[3]}
+                  </Typography>
+                </Box>
+                <Box display='flex' alignItems='center' mb={1}>
+                  <Typography variant='subtitle2'>Symbol</Typography>
+                  <Typography variant='body2' ml='auto'>
+                    {result[4]}
+                  </Typography>
+                </Box>
+                <Box display='flex' alignItems='center' mb={1}>
+                  <Typography variant='subtitle2'>Decimals</Typography>
+                  <Typography variant='body2' ml='auto'>
+                    {result[2]}
+                  </Typography>
+                </Box>
+                <Box display='flex' alignItems='center' mb={1}>
+                  <Typography variant='subtitle2'>Balance</Typography>
+                  <Typography variant='body2' ml='auto'>
+                    {displayBalance(result[0], result[2])}
+                  </Typography>
+                </Box>
+                <Box display='flex' alignItems='center'>
+                  <Typography variant='subtitle2'>Total Supply</Typography>
+                  <Typography variant='body2' ml='auto'>
+                    {displayBalance(result[1], result[2])}
+                  </Typography>
+                </Box>
+              </>
+            )}
+          </Block>
+        </Box>
       </Box>
-    </Box>
+    </Main>
   )
 }
 

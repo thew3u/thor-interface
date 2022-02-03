@@ -1,12 +1,24 @@
 import {Button, Grid, Typography} from '@mui/material'
 import {useContract, useWeb3} from '@w3u/useweb3'
-import {ChangeEvent, useEffect, useState} from 'react'
+import {getDefaultProvider} from 'ethers'
+import {ChangeEvent, ReactNode, useEffect, useState} from 'react'
 import {NftProvider, useNft} from 'use-nft'
 import ERC1155ABI from '../../abis/ERC1155.json'
+import Main from '../../components/Main'
 import UnstyledInput, {Block} from '../../components/style'
 
 const exampleAddress = '0xed5af388653567af2f388e6224dc7c4b3241c544'
 const exampleID = '5326'
+
+export const NFTWrapper = () => {
+  const {library, account, chainId} = useWeb3()
+
+  const ethersConfig = {
+    provider: library ?? getDefaultProvider(1)
+  }
+
+  return <NftProvider fetcher={['ethers', ethersConfig]}><NFT/></NftProvider>
+}
 
 const NFT = () => {
   const {library, account, chainId} = useWeb3()
@@ -15,10 +27,8 @@ const NFT = () => {
   const [id, setID] = useState(exampleID)
   const {loading, error, nft} = useNft(address, id)
 
-  console.log(nft)
-
   return (
-    <>
+    <Main>
       <Block mb={4}>
         <Typography variant='subtitle1'>Contract Address</Typography>
         <UnstyledInput
@@ -59,7 +69,7 @@ const NFT = () => {
           </a>
         </Grid>
       </Grid>
-    </>
+    </Main>
   )
 }
 
